@@ -1,21 +1,17 @@
 <?php
+namespace App\Banque;
+
 /**
  * bank account object
  */
-
 abstract class Compte
 {
   private string $titulaire;
   protected float $solde;
 
-
   public function __construct(string $nom, float $montant=100){
     $this->titulaire = $nom;
     $this->solde = $montant;
-  }
-
-  public function __toString(){
-    
   }
 
   /**
@@ -26,7 +22,6 @@ abstract class Compte
   public function getTitulaire():string {
     return $this->titulaire;
   }
-
 
   /**
    * update titulaire nom
@@ -60,8 +55,6 @@ abstract class Compte
     return $this;
   }
 
-
-
   public function deposer($montant){
     if ($montant > 0) {
       $this->solde += $montant;
@@ -71,8 +64,6 @@ abstract class Compte
   public function voirSolde(){
     return "Le solde du compte est de $this->solde euros";
   }
-
-
 
   /**
    * retier un montant du solde du compte 
@@ -86,7 +77,6 @@ abstract class Compte
       echo "Montant invalide ou solde insuffisant";
     }
   }
-
 }
 
 

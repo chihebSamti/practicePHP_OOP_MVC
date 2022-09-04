@@ -1,7 +1,13 @@
 <?php
-class CompteEpargneCourant extends CompteEpargne {
-  private $decouvert;
+namespace App\Banque;
+use App\Banque\Compte ;
 
+/**
+ * compte bancaire hérite de la class comte
+ */
+class CompteCourant extends Compte
+{
+  private $decouvert;
 
   /**
    *constructeur de compte courant
@@ -10,10 +16,10 @@ class CompteEpargneCourant extends CompteEpargne {
    * @param integer $decouvert découvert autorisé 
    * @return void
    */
-  public function __construct(string $nom, float $montant=100, int $tauxInterets, int $decouvert){
+  public function __construct(string $nom, float $montant=100, int $decouvert){
 
     //transferer les infos au constructeur
-    parent::__construct($nom, $montant, $tauxInterets);
+    parent::__construct($nom, $montant);
 
     $this->decouvert = $decouvert;
   }
@@ -38,24 +44,8 @@ class CompteEpargneCourant extends CompteEpargne {
     }else{
       echo "solde insuffisant" ;
     }
-
-
-
   }
-  
-
-
-
-
-
-
-
-
-
-
 }
-
-
 
 
 

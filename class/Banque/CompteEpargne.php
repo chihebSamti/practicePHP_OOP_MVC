@@ -1,12 +1,12 @@
 <?php
+namespace App\Banque;
+use App\Banque\Compte;
 
 /**
  * compte avec taux d'interet
  */
 class CompteEpargne extends Compte{
-
   private $tauxInterets;
-
 
   /**
    * constructeur de compte epargne
@@ -15,13 +15,10 @@ class CompteEpargne extends Compte{
    * @param integer $tauxInterets taux d'interet
    * @return void
    */
-  public function __construct(string $nom, float $montant, int $tauxInterets)
-  { 
+  public function __construct(string $nom, float $montant, int $tauxInterets){ 
     parent::__construct($nom,$montant);
     $this->tauxInterets = $tauxInterets;
-    
   }
-
 
   /**
    * get taux d'interet
@@ -49,15 +46,8 @@ class CompteEpargne extends Compte{
     $this->solde += $this->solde * $this->tauxInterets / 100 ;
     return $this->solde;
   }
-
-
-
-
-
-
 }
 
 
 
 
-?>
