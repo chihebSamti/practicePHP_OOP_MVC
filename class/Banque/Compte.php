@@ -1,16 +1,18 @@
 <?php
 namespace App\Banque;
 
+use App\Client\Compte as CompteClient;
+
 /**
  * bank account object
  */
 abstract class Compte
 {
-  private string $titulaire;
+  private CompteClient $titulaire;
   protected float $solde;
 
-  public function __construct(string $nom, float $montant=100){
-    $this->titulaire = $nom;
+  public function __construct(CompteClient $compte, float $montant=100){
+    $this->titulaire = $compte;
     $this->solde = $montant;
   }
 
@@ -19,7 +21,7 @@ abstract class Compte
    *
    * @return string
    */
-  public function getTitulaire():string {
+  public function getTitulaire():CompteClient {
     return $this->titulaire;
   }
 
@@ -28,9 +30,9 @@ abstract class Compte
    * @param string $nom
    * @return self
    */
-  public function setTitulaire(string $nom):self {
-    if($nom !=''){
-       $this->titulaire = $nom;
+  public function setTitulaire(CompteClient $compte):self {
+    if(isset($compte)){
+       $this->titulaire = $compte;
     }
     return $this;
   }

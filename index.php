@@ -7,17 +7,20 @@ use App\Banque\{CompteCourant, CompteEpargne, CompteEpargneCourant};
 require_once 'class/Autoloader.php';
 Autoloader::register();
 
-$nom = "chiheb";
 $solde = 500;
 $decouvert = 100;
-$compteCourant = new CompteCourant($nom, $solde, $decouvert);
+$ville = "Paris";
+
+$compte1 = new CompteClient("chiheb", "samti",$ville);
+$compte2 = new CompteClient("fourat", "samti","Tunis");
+
+$compteCourant = new CompteCourant($compte1, $solde, $decouvert);
 $compteCourant->retirer(200);
 var_dump($compteCourant);
 
-$compteEpargne = new CompteEpargneCourant("samti", 200, 3, 50);
+$compteEpargne = new CompteEpargneCourant($compte2, 200, 3, 50);
 $compteEpargne-> verserInteret();
 var_dump($compteEpargne);
 
-CompteClient::success(); 
 
 
