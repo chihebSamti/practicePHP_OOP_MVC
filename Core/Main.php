@@ -8,7 +8,6 @@ class Main{
   public function start(){
 
     // netoyage url + eviter le contenu double
-    
     // On récupere l'URL
     $uri = $_SERVER['REQUEST_URI'];
 
@@ -37,19 +36,24 @@ class Main{
       // on met une majuscule en 1ere lettre, on ajoute le namespace avant et on ajoute "controller" aprés 
       $controller = '\\App\\Controllers\\'.ucfirst(array_shift($params)).'Controller';
 
+      if(class_exists($controller)){
+          $controller = new $controller;
+
+          $action = (isset($params[0])) ? array_shift($params) : 'index';
+        if (method_exists($controller, $action)) {
+          // on verifi si il rest des params 
+          (isset($params[0])) ? call_user_func_array([$controller, $action], $params) : $controller->$action();
+        }else{
+          http_response_code(404);
+          echo "la page recherché n'existe pas this" ;
+        }
+      }else{
+        echo " la page recherché n'existe pas" ;
+      }
       // on instanci le controlleur
-      $controller = new $controller;
 
       //on recupere le 2eme param
-      $action = (isset($params[0])) ? array_shift($params) : 'index';
-
-      if (method_exists(/*class*/$controller, /*method*/$action)) {
-        // on verifi si il rest des params 
-        (isset($params[0])) ? $controller->$action($params) : $controller->$action();
-      }else{
-        http_response_code(404);
-        echo "la page recherché n'existe pas" ;
-      }
+      
 
 
 

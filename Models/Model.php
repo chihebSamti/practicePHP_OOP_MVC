@@ -92,7 +92,6 @@ class Model extends Db{
     return $this->requete("DELETE FROM {$this->table} WHERE id = ?", [$id]);
   }
   
-  
   //preparer et execute les requetes 
   protected function requete(string $sql, array $attributs = null){
     //instancier ou recuperer l'instance de Db
@@ -124,9 +123,5 @@ class Model extends Db{
     }
     return $this;
   }
-
-
-
-
 
 }
