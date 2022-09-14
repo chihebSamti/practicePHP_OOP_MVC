@@ -6,6 +6,9 @@ use App\Controllers\MainController;
 
 class Main{
   public function start(){
+    // on demarre la session
+    session_start();
+    
 
     // netoyage url + eviter le contenu double
     // On récupere l'URL
@@ -53,11 +56,6 @@ class Main{
       // on instanci le controlleur
 
       //on recupere le 2eme param
-      
-
-
-
-
 
     }else{
       // on n'a pas de param 

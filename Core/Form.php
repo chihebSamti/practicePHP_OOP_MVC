@@ -22,7 +22,7 @@ class Form {
   public static function validate(array $form, array $champs) {
     foreach($champs as $champ) {
       // on verifie si le champ est absent ou vide 
-      if(!isset($form[$champ]) || empty($form[$champ])) {
+      if(!isset($form[$champ]) || empty($form[$champ]) ) {
         return false ;
       }
       return true ;
@@ -60,9 +60,9 @@ class Form {
    * @param array $attributs
    * @return Form
    */
-  public function debutForm(string $method = 'post', string $action = '#', array $attributs = []): self {
+  public function debutForm(string $method = 'POST', string $action = '#', array $attributs = []): self {
     // on creee la balise form
-    $this->formCode .= "<form action='$action' method='$method'" ;
+    $this->formCode .= "<form method='$method' action='$action' " ;
 
     // on ajoute les atribut eventuelle
     $this->formCode .= $attributs ? $this->addAttributs($attributs).'>': '>';
@@ -106,7 +106,7 @@ class Form {
    * @param array $attributs
    * @return self
    */
-  public function AjoutInput(string $type, string $nom, array $attributs=[]) :self {
+  public function ajoutInput(string $type, string $nom, array $attributs=[]) :self {
     // on ouvre la balise 
     $this->formCode .= "<input type='$type' name='$nom'";
 

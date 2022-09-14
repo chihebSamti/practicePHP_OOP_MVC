@@ -14,7 +14,7 @@
 
 <body>
   <!-- nav bar  -->
-  <nav class="navbar navbar-expand-lg bg-light">
+  <nav class="navbar navbar-expand-lg bg-light ">
     <div class="container-fluid">
 
       <a class="navbar-brand" href=<?= URL?>>Mes Annonces</a>
@@ -22,15 +22,31 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
 
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link " aria-current="page" href=<?= URL?>>Accueil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?= URL?>/annonces">List des annonces</a>
           </li>
+        </ul>
+        
+        <ul class="navbar-nav ml-auto">
+          <?php if (isset($_SESSION['user']) && !empty($_SESSION['user']['id'])): ?>
+            <li class="nav-item">
+            <a class="nav-link" href="<?=URL?>/users/profil">Profil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?=URL?>/users/logout">Deconnexion</a>
+          </li>
+          <?php else: ?>
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="<?=URL?>/users/login">Connexion</a>
+            </li>
+          <?php endif; ?>
+        </ul>
       </div>
     </div>
   </nav>

@@ -44,15 +44,15 @@ class Model extends Db{
   
   // create methode :
 
-  public function create(Model $model){
+  public function create(){
     $champs = [];
     $inter = [];
     $valeurs = [];
     
     // on boucle pour eclater le tablau 
-    foreach ($model as $champ => $valeur) {
+    foreach ($this as $champ => $valeur) {
       // INSERT INTO annonces (champs) VALUES (valeur, ?, ?, ? )
-      if($valeur != null && $champ != 'db' && $champ != 'table'){
+      if($valeur !== null && $champ != 'db' && $champ != 'table'){
         $champs[]=$champ ;
         $inter[]="?";
         $valeurs[]= $valeur;
@@ -68,19 +68,19 @@ class Model extends Db{
   }
 
   //update methode
-  public function update(int $id, Model $model){
+  public function update(){
     $champs = [];
     $valeurs = [];
     
     // on boucle pour eclater le tablau 
-    foreach ($model as $champ => $valeur) {
+    foreach ($this as $champ => $valeur) {
       // UPDATE annonces SET Titre = ?, description = ? , ... WHERE id = ?
       if($valeur !== null && $champ != 'db' && $champ != 'table'){
         $champs[]="$champ = ?" ;
         $valeurs[]= $valeur;
       }
     }
-    $valeurs[] = $id ;
+    $valeurs[] = $this->id ;
     // on transforme le tableau "champ" en chaine de caractere 
     $liste_champs = implode(', ' , $champs );
     //on execute la requete 
@@ -109,7 +109,7 @@ class Model extends Db{
   }
 
   // methode hydrate
-  public function hydrate(array $donnees){
+  public function hydrate($donnees){
     foreach ($donnees as $key => $value){
       // on recupere le nom du setter corresspondant a la clé (key)
       // titre -> setTitre
