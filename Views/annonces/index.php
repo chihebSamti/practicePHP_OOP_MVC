@@ -5,4 +5,5 @@
     <h3><a href="<?= URL ?>/annonces/lire/<?= $annonce->id ?>"><?= $annonce->titre ?></a></h3>
     <p><?= $annonce->description ?></p>
   </article>
+  <a href="<?= URL ?>/annonces/modifier/<?= $annonce->id ?>">Modifier</a>
 <?php endforeach;?>

@@ -4,7 +4,6 @@ namespace App\Core ;
 class Form {
   private $formCode = '';
 
-
   /**
    * generate HTML form 
    * @return void
@@ -25,8 +24,8 @@ class Form {
       if(!isset($form[$champ]) || empty($form[$champ]) ) {
         return false ;
       }
-      return true ;
     }
+    return true ;
   }
 
   /**
@@ -47,7 +46,7 @@ class Form {
       if(in_array($attribut, $courts) && $valeur == true ) {
         $str .= " $attribut";
       }else{
-        $str .= " $attribut='$valeur'";
+        $str .= " $attribut=\"$valeur\"";
       }
     }
     return $str;
@@ -67,15 +66,6 @@ class Form {
     // on ajoute les atribut eventuelle
     $this->formCode .= $attributs ? $this->addAttributs($attributs).'>': '>';
     
-    return $this;
-  }
-
-  /**
-   * balise de fermeture de formulaire
-   * @return self
-   */
-  public function finForm() :self {
-    $this->formCode .= "</form>";
     return $this;
   }
 
@@ -137,7 +127,7 @@ class Form {
 
     //ajouter les option 
     foreach($options as $valeur => $text){
-      $this->formCode .= "<option value='$valeur'>$text</option>";
+      $this->formCode .= "<option value=\"$valeur\">$text</option>";
     }
 
     //on ferme le select
@@ -156,6 +146,19 @@ class Form {
     //on ajout le text est on ferme
     $this->formCode .= ">$text</button>";
     
+    return $this;
+  }
+
+  /**
+   * balise de fermeture de formulaire
+   * @return self
+   */
+  public function finForm() :self {
+    $token = md5(uniqid());
+    $this->formCode .= " <input type='hidden' name='token' value='$token'>";
+    $this->formCode .= "</form>";
+    $_SESSION['token'] = $token;
+
     return $this;
   }
 }

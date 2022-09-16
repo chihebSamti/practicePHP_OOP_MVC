@@ -31,6 +31,9 @@
           <li class="nav-item">
             <a class="nav-link" href="<?= URL?>/annonces">List des annonces</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= URL?>/annonces/ajouter">Ajouter une annonce</a>
+          </li>
         </ul>
         
         <ul class="navbar-nav ml-auto">
@@ -43,6 +46,9 @@
           </li>
           <?php else: ?>
             <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="<?=URL?>/users/register">Inscription</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link " aria-current="page" href="<?=URL?>/users/login">Connexion</a>
             </li>
           <?php endif; ?>
@@ -52,6 +58,20 @@
   </nav>
 
   <div class="container">
+    <!-- alet message section  -->
+    <?php if(!empty($_SESSION['message'])) : ?>
+            <div class="alert alert-success" role="alert">
+              <?= $_SESSION['message'] ; unset($_SESSION['message']) ; ?>
+            </div>
+    <?php endif ;?>
+    <!-- . -->
+    <?php if(!empty($_SESSION['error'])) : ?>
+            <div class="alert alert-danger" role="alert">
+              <?= $_SESSION['error'] ; unset($_SESSION['error']) ; ?>
+            </div>
+    <?php endif ;?>
+
+    <!-- content -->
     <?= $contenu ?>
   </div>
 

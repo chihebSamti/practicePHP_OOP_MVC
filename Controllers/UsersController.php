@@ -23,7 +23,7 @@ class UsersController extends Controller {
       // l'utilisateur n'existe pas
       if(!$userArray){
         // on envoie un message de session 
-        $_SESSION['loginError'] = 'l\'adressse mail et ou le mot de pass est incorrect';
+        $_SESSION['error'] = 'l\'adressse mail et ou le mot de pass est incorrect';
         header('location:'.URL.'/users/login');
         exit;
       }
@@ -40,7 +40,7 @@ class UsersController extends Controller {
       
       }else{
         //mauvais mot de pass 
-          $_SESSION['loginError'] = 'l\'adressse mail et ou le mot de pass est incorrect';
+          $_SESSION['error'] = 'l\'adressse mail et ou le mot de pass est incorrect';
           header('location:'.URL.'/users/login');
           exit;  
       }
@@ -69,21 +69,37 @@ class UsersController extends Controller {
     
     if(Form::validate($_POST, ['email', 'password'])){
 
-      // on nettoie l'adresse mail 
-      $email = strip_tags($_POST['email']);
-      
-      // chiffrer le mote de passe 
-      $pass = password_hash($_POST['password'], PASSWORD_ARGON2I) ;
+      // on verifie si l'utilisateur a deja un compte ou non 
+      $userModel = new UsersModel;
+      $userArray = $userModel->findOneByEmail(($_POST['email']));
 
-      // on hydrate l'utilisateur dans la base de donnees
-      $user = new UsersModel;
+      if(!$userArray){
 
-      $user->setEmail($email)
-            ->setPassword($pass) 
-            ;
+        var_dump($userArray);
+        // on nettoie l'adresse mail 
+        $email = strip_tags($_POST['email']);
+        
+        // chiffrer le mote de passe 
+        $pass = password_hash($_POST['password'], PASSWORD_ARGON2I) ;
+  
+        // on hydrate l'utilisateur dans la base de donnees
+        $user = new UsersModel;
+  
+        $user->setEmail($email)
+              ->setPassword($pass) 
+              ;
+  
+        // on stock l'utilisateur 
+        $user->create();
 
-      // on stock l'utilisateur 
-      $user->create();
+      }else{
+        $_SESSION['registerError'] = "un compte deja enregistrer avec cette adresse mail !";
+
+        // redirect to register page 
+        header('location: '.URL.'/users/register');
+        exit;
+      }
+
     }
 
     $form = new form;
