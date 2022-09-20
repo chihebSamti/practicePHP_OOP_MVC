@@ -34,6 +34,8 @@ class UsersController extends Controller {
       if(password_verify($_POST['password'], $user->getPassword())){
       // le mot de pass est bon 
       // on cree la session
+      
+      $_SESSION['message'] = "welcome ! ".$_POST['email'];
       $user ->setSession();
       header('location:'.URL);
       exit;
@@ -91,6 +93,9 @@ class UsersController extends Controller {
   
         // on stock l'utilisateur 
         $user->create();
+        $this->login();
+        header('location: '.URL.'/users/login');
+        exit;
 
       }else{
         $_SESSION['registerError'] = "un compte deja enregistrer avec cette adresse mail !";

@@ -124,9 +124,11 @@ class AnnoncesController extends Controller
 
       //on verifie si l'utilisateur est proprietaire de l'annonce
       if ($annonce->user_id !== $_SESSION['user']['id']){
-        $_SESSION['error'] = "vous n'avez pas acces a cette page" ;
-        header('location: '.URL.'/annonces');
-        exit;
+        if (!in_array('ROLE_ADMIN', $_SESSION['user']['roles'])){
+          $_SESSION['error'] = "vous n'avez pas acces a cette page" ;
+          header('location: '.URL.'/annonces');
+          exit;
+        }
       };
 
       //on traite le formulaire
