@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Core;
-
 use App\Controllers\MainController;
 
 class Main{
