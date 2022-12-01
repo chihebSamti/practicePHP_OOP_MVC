@@ -10,8 +10,7 @@ class AnnoncesController extends Controller
    * cette methode affiche une page list toutes annonce de la base 
    * @return void
    */
-  public function index()
-  { // on instancie le modele correspondant a la table 'annonces'
+  public function index(){ // on instancie le modele correspondant a la table 'annonces'
     $annoncesModel = new AnnoncesModel;
 
     //on va chercher toute les annonce
